@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.http.WebSocket;
 
-public class Main {
+
+public class Main2 {
     public static boolean triangle(Double a, Double b, Double c) {
         if (a + b > c && a + c > b && b + c > a)
             return  true;
@@ -52,7 +54,7 @@ public class Main {
         textview.setBounds(50,40,350,20);
         textview.setFont(new Font("Serif", Font.PLAIN, 17));
 
-        JButton button = new JButton("Рассчитать");
+        JButton button = new JButton("Выход");
         button.setBounds(130,150,120,20);
 
         JLabel textview2 = new JLabel("S = ");
@@ -75,13 +77,42 @@ public class Main {
         frame.setVisible(true);
 
 
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        //make edittext 1 input listener
+        KeyListener myListener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
                 String a = edittxt1.getText();
                 String b = edittxt2.getText();
                 String c = edittxt3.getText();
 
                 correctData(a, b, c, textview3);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                String a = edittxt1.getText();
+                String b = edittxt2.getText();
+                String c = edittxt3.getText();
+
+                correctData(a, b, c, textview3);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String a = edittxt1.getText();
+                String b = edittxt2.getText();
+                String c = edittxt3.getText();
+
+                correctData(a, b, c, textview3);
+            }
+        };
+        edittxt1.addKeyListener(myListener);
+        edittxt2.addKeyListener(myListener);
+        edittxt3.addKeyListener(myListener);
+
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
 
             }
         });
