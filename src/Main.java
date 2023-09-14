@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
 public class Main {
     public static boolean triangle(Double a, Double b, Double c) {
         if (a + b > c && a + c > b && b + c > a)
@@ -9,7 +8,6 @@ public class Main {
         else
             return false;
     }
-
     public static void correctData(String a, String b, String c, JLabel textview) {
         try{
             double a1 = Double.parseDouble(a);
@@ -28,13 +26,10 @@ public class Main {
             textview.setText("Некорректные данные");
         }
     }
-
-
     public static String Perimetr(double a, double b, double c, double P){
         return String.valueOf(  Math.sqrt( P * (P-a) * (P-b) * (P-c) )   );
     }
     public static void main(String[] args) {
-
 
         JFrame frame = new JFrame("Калькулятор площади треугольника");
         frame.setSize(400,300);
@@ -63,7 +58,6 @@ public class Main {
         textview3.setBounds(80,200,300,20);
         textview3.setFont(new Font("Serif", Font.PLAIN, 20));
 
-
         frame.add(button);
         frame.add(textview);
         frame.add(edittxt1);
@@ -74,7 +68,6 @@ public class Main {
         frame.setLayout(null);
         frame.setVisible(true);
 
-
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String a = edittxt1.getText();
@@ -82,9 +75,7 @@ public class Main {
                 String c = edittxt3.getText();
 
                 correctData(a, b, c, textview3);
-
             }
         });
-
     }
 }

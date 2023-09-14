@@ -76,34 +76,28 @@ public class Main2 {
         frame.setLayout(null);
         frame.setVisible(true);
 
-
         //make edittext 1 input listener
         KeyListener myListener = new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
+            public void getStrings(){
                 String a = edittxt1.getText();
                 String b = edittxt2.getText();
                 String c = edittxt3.getText();
 
                 correctData(a, b, c, textview3);
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {
+                getStrings();
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                String a = edittxt1.getText();
-                String b = edittxt2.getText();
-                String c = edittxt3.getText();
-
-                correctData(a, b, c, textview3);
+                getStrings();
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                String a = edittxt1.getText();
-                String b = edittxt2.getText();
-                String c = edittxt3.getText();
-
-                correctData(a, b, c, textview3);
+                getStrings();
             }
         };
         edittxt1.addKeyListener(myListener);
