@@ -35,8 +35,24 @@ public class Main2 {
     public static String Perimetr(double a, double b, double c, double P){
         return String.valueOf(  Math.sqrt( P * (P-a) * (P-b) * (P-c) )   );
     }
-    public static void main(String[] args) {
+    public static void getFocus(JTextField target, JTextField else1, JTextField else2, JLabel textview){
 
+        String tg = target.getText();
+        String b = else1.getText();
+        String c = else2.getText();
+
+        try {
+            double tg1 = Double.parseDouble(tg);
+            else1.setEnabled(true);
+            else2.setEnabled(true);
+        }catch (NumberFormatException ex){
+            else1.setEnabled(false);
+            else2.setEnabled(false);
+        }
+
+        correctData(tg, b, c, textview);
+    }
+    public static void main(String[] args) {
 
         JFrame frame = new JFrame("Калькулятор площади треугольника");
         frame.setSize(400,300);
@@ -76,123 +92,47 @@ public class Main2 {
         frame.setLayout(null);
         frame.setVisible(true);
 
-        //make edittext 1 input listener
-        KeyListener myListener = new KeyListener() {
-            public void getStrings(){
-                String a = edittxt1.getText();
-                String b = edittxt2.getText();
-                String c = edittxt3.getText();
 
-                correctData(a, b, c, textview3);
-            }
-            @Override
-            public void keyTyped(KeyEvent e) {
-                getStrings();
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                getStrings();
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                getStrings();
-            }
-        };
         edittxt1.addKeyListener(new KeyListener() {
-            private void getS(){
-                String a = edittxt1.getText();
-                try {
-                    double a1 = Double.parseDouble(a);
-                    edittxt2.setEnabled(true);
-                    edittxt3.setEnabled(true);
-                }catch (NumberFormatException ex){
-                    edittxt2.setEnabled(false);
-                    edittxt3.setEnabled(false);
-                }
-
-                String b = edittxt2.getText();
-                String c = edittxt3.getText();
-
-                correctData(a, b, c, textview3);
-            }
             @Override
-            public void keyTyped(KeyEvent e) {
-                getS();
-            }
+            public void keyTyped(KeyEvent e) {getFocus(edittxt1, edittxt2, edittxt3, textview3);}
 
             @Override
-            public void keyPressed(KeyEvent e) {
-                getS();
-            }
+            public void keyPressed(KeyEvent e) {getFocus(edittxt1, edittxt2, edittxt3, textview3);}
 
             @Override
-            public void keyReleased(KeyEvent e) {
-                getS();
-            }
+            public void keyReleased(KeyEvent e) {getFocus(edittxt1, edittxt2, edittxt3, textview3);}
         });
         edittxt2.addKeyListener(new KeyListener() {
-            private void getS(){
-                String b = edittxt2.getText();
-                try {
-                    double b1 = Double.parseDouble(b);
-                    edittxt1.setEnabled(true);
-                    edittxt3.setEnabled(true);
-                }catch (NumberFormatException ex){
-                    edittxt1.setEnabled(false);
-                    edittxt3.setEnabled(false);
-                }
-                String a = edittxt1.getText();
-                String c = edittxt3.getText();
-
-                correctData(a, b, c, textview3);
-            }
             @Override
             public void keyTyped(KeyEvent e) {
-                getS();
+                getFocus(edittxt2, edittxt1, edittxt3, textview3);
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                getS();
+                getFocus(edittxt2, edittxt1, edittxt3, textview3);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                getS();
+                getFocus(edittxt2, edittxt1, edittxt3, textview3);
             }
         });
         edittxt3.addKeyListener(new KeyListener() {
-            private void getS(){
-                String c = edittxt3.getText();
-                try {
-                    double c1 = Double.parseDouble(c);
-                    edittxt1.setEnabled(true);
-                    edittxt2.setEnabled(true);
-                }catch (NumberFormatException ex){
-                    edittxt1.setEnabled(false);
-                    edittxt2.setEnabled(false);
-                }
-                String a = edittxt1.getText();
-                String b = edittxt2.getText();
-
-
-                correctData(a, b, c, textview3);
-            }
             @Override
             public void keyTyped(KeyEvent e) {
-                getS();
+                getFocus(edittxt3, edittxt1, edittxt2, textview3);
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                getS();
+                getFocus(edittxt3, edittxt1, edittxt2, textview3);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                getS();
+                getFocus(edittxt3, edittxt1, edittxt2, textview3);
             }
         });
 
