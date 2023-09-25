@@ -100,9 +100,101 @@ public class Main2 {
                 getStrings();
             }
         };
-        edittxt1.addKeyListener(myListener);
-        edittxt2.addKeyListener(myListener);
-        edittxt3.addKeyListener(myListener);
+        edittxt1.addKeyListener(new KeyListener() {
+            private void getS(){
+                String a = edittxt1.getText();
+                try {
+                    double a1 = Double.parseDouble(a);
+                    edittxt2.setEnabled(true);
+                    edittxt3.setEnabled(true);
+                }catch (NumberFormatException ex){
+                    edittxt2.setEnabled(false);
+                    edittxt3.setEnabled(false);
+                }
+
+                String b = edittxt2.getText();
+                String c = edittxt3.getText();
+
+                correctData(a, b, c, textview3);
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {
+                getS();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                getS();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                getS();
+            }
+        });
+        edittxt2.addKeyListener(new KeyListener() {
+            private void getS(){
+                String b = edittxt2.getText();
+                try {
+                    double b1 = Double.parseDouble(b);
+                    edittxt1.setEnabled(true);
+                    edittxt3.setEnabled(true);
+                }catch (NumberFormatException ex){
+                    edittxt1.setEnabled(false);
+                    edittxt3.setEnabled(false);
+                }
+                String a = edittxt1.getText();
+                String c = edittxt3.getText();
+
+                correctData(a, b, c, textview3);
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {
+                getS();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                getS();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                getS();
+            }
+        });
+        edittxt3.addKeyListener(new KeyListener() {
+            private void getS(){
+                String c = edittxt3.getText();
+                try {
+                    double c1 = Double.parseDouble(c);
+                    edittxt1.setEnabled(true);
+                    edittxt2.setEnabled(true);
+                }catch (NumberFormatException ex){
+                    edittxt1.setEnabled(false);
+                    edittxt2.setEnabled(false);
+                }
+                String a = edittxt1.getText();
+                String b = edittxt2.getText();
+
+
+                correctData(a, b, c, textview3);
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {
+                getS();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                getS();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                getS();
+            }
+        });
 
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
