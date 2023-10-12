@@ -16,27 +16,43 @@ public class lab2_2 extends JFrame {
     public static boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
-    public static double SummN (double endN, double x)
-    {
-        double summ = 1, n = 0, currnumb, xb = x, factorialb = 1, fact = 1, Z;
-        do {
+    private String calculate(JTextField inputX, JTextField variable, JRadioButton precisionRadio, JRadioButton termsRadio) {
+        try {
+            double x = Double.parseDouble(inputX.getText());
+            double result = 0;
+            if (precisionRadio.isSelected()) {
+                double e0 = Double.parseDouble(variable.getText());
+                double prevResult;
+                int n = 0;
+                do {
+                    prevResult = result;
+                    result += (Math.pow(x, n) / factorial(n));
+                    n++;
+                } while (Math.abs(prevResult - result) > e0);
 
-        }while (n<endN);
-        return summ;
+
+            } else if (termsRadio.isSelected()) {
+                double N = Double.parseDouble(variable.getText());
+                for (int i = 0; i < N; i++) {
+                    result += (Math.pow(x, i) / factorial(i));
+                }
+            }
+
+            return String.valueOf(result);
+        } catch (NumberFormatException e) {
+            return "Неверный формат ввода";
+        }
     }
 
-    //Функция  с установленной точностью
-    public static double SummE (double e, double x)
-    {
-        double result = 1;
-        int k = 1;
-        double sum = x;
-        while(Math.abs(sum) >= e) {
-            result += sum;
-            sum *= Math.pow(x-1, k+1) / (k + 1)*Math.pow(x, k+1);
-            k++;
+    private int factorial(int n) {
+        int result = 1;
+        if (n == 0) {
+            return 1;
         }
-        return sum;
+        for (int i = 1; i <= n; i++) {
+            result *= i;
+        }
+        return result;
     }
     public void Calculate(){
         try{
@@ -47,7 +63,7 @@ public class lab2_2 extends JFrame {
                 try{
                     double e0 = Double.parseDouble(e0Value.getText());
                     if(!isNumeric(e0Value.getText()))throw new NumberFormatException("Use numeric format");
-                    answerLabel.setText(String.valueOf(SummE(e0, x)));
+                    //answerLabel.setText(String.valueOf(SummE(e0, x)));
                 }catch (NumberFormatException ex){
                     answerLabel.setText("Некорректное e0");
                 }
@@ -57,7 +73,7 @@ public class lab2_2 extends JFrame {
                 try{
                     double N = Double.parseDouble(nValue.getText());
                     if(!isNumeric(nValue.getText()))throw new NumberFormatException("Use numeric format");
-                    answerLabel.setText(String.valueOf(SummN(N, x)));
+                    //answerLabel.setText(String.valueOf(SummN(N, x)));
                 }catch (NumberFormatException ex){
                     answerLabel.setText("Некорректное N");
                 }
