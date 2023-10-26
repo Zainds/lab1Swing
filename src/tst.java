@@ -110,13 +110,10 @@ public class tst extends JFrame {
     }
 
     private void calculateBtn(ActionEvent e) {
-        for (double y: Y) {
-            /*for(int i = X.size()-1; i != 0; i --){
-                y = X.get(i);
-            }*/
-            for (double x: X) {
-                y = x;
-            }
+        int j = 0;
+        for (int i = X.size()-1; i>= 0; i--){
+            Y.set(j, X.get(i));
+            j++;
         }
     }
 
@@ -136,7 +133,6 @@ public class tst extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Evaluation license - Michail
         menuBar2 = new JMenuBar();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
@@ -226,7 +222,6 @@ public class tst extends JFrame {
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Evaluation license - Michail
     private JMenuBar menuBar2;
     private JMenu menu1;
     private JMenuItem menuItem1;

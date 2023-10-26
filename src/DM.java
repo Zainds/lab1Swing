@@ -80,6 +80,8 @@ public class DM {
             frame.setSize(400, 280);
             frame.setVisible(true);
             frame.setLayout(null);
+
+
         }
         private String calculate(JTextField inputX, JTextField variable, JRadioButton precisionRadio, JRadioButton termsRadio) {
             try {
@@ -94,6 +96,8 @@ public class DM {
                         result += Math.pow(x-1, n+1) / (  (n+1)* Math.pow(x, n+1))  ;
                         n++;
                     } while (Math.abs(prevResult - result) > e0);
+
+
                 } else if (termsRadio.isSelected()) {
                     double N = Double.parseDouble(variable.getText());
                     double prevResult;
@@ -113,7 +117,10 @@ public class DM {
                 return "Неверный формат ввода";
             }
         }
+
     }
+
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel ("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -121,7 +128,9 @@ public class DM {
                  UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }
+
         UserInterface UI = new UserInterface();
         UI.createWindow();
+
     }
 }

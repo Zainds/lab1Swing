@@ -54,7 +54,7 @@ public class lab2_1 extends JFrame {
             }
             if (CheckBox.isSelected()) result*=2;
 
-            label.setText(String.valueOf(result));
+            label.setText("Ответ: " + String.valueOf(result));
 
         }
         catch (NumberFormatException ex){
