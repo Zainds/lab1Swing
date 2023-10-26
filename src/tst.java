@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import net.miginfocom.swing.*;
 
 import java.io.*;
@@ -33,6 +34,7 @@ public class tst extends JFrame {
 
     private void newBtn(ActionEvent e) {
        X.clear();
+       list1.removeAll();
 
         for (int i = 0; i < N; i++){
             if(i==0){
@@ -45,10 +47,7 @@ public class tst extends JFrame {
                 X.add(  1/(1 + Math.pow(i+1, 2) )  );
             }
         }
-
-        for (double x : X) {
-            System.out.println(x);
-        }
+        list1.setListData(X.toArray());
 
         /*for (int i = 0; i < N; i++){
             Y.add(1.0);
@@ -94,6 +93,7 @@ public class tst extends JFrame {
             System.out.println("You chose " + filename);
             File file = new File(filename);
             X.clear();
+            list1.removeAll();
             try (BufferedReader br = new BufferedReader(new FileReader(file)))
             {
                 String line;
@@ -102,6 +102,7 @@ public class tst extends JFrame {
                     System.out.println(line);
                     X.add(Double.valueOf(line));
                 }
+                list1.setListData(X.toArray());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -115,6 +116,7 @@ public class tst extends JFrame {
             Y.set(j, X.get(i));
             j++;
         }
+        comboBox1.setModel(new DefaultComboBoxModel<Double>(Y.toArray(new Double[0])));
     }
 
     private void button1(ActionEvent e) {
@@ -131,8 +133,36 @@ public class tst extends JFrame {
         Y.clear();
     }
 
+    private void list1ValueChanged(ListSelectionEvent e) {
+        if(list1.getSelectedIndex() == -1) return; //Если ничего не выбрано (при загрузке
+        System.out.println(list1.getSelectedIndex());
+        textField1.setText(X.get(list1.getSelectedIndex()).toString());
+    }
+
+    private void replaceX(ActionEvent e) {
+        int indexToReplace = list1.getSelectedIndex();
+        X.set(indexToReplace, Double.valueOf(textField1.getText()));
+        list1.setListData(X.toArray());
+        list1.setSelectedIndex(indexToReplace);
+    }
+
+    private void comboBox1ItemStateChanged(ItemEvent e) {
+        if(comboBox1.getSelectedIndex() == -1) return; //Если ничего не выбрано (при загрузке
+        int indexToReplace = comboBox1.getSelectedIndex();
+        System.out.println(indexToReplace);
+        textField2.setText(Y.get(indexToReplace).toString());
+    }
+
+    private void replaceY(ActionEvent e) {
+        int indexToReplace = comboBox1.getSelectedIndex();
+        Y.set(indexToReplace, Double.valueOf(textField2.getText()));
+        comboBox1.setModel(new DefaultComboBoxModel<Double>(Y.toArray(new Double[0])));
+        comboBox1.setSelectedIndex(indexToReplace);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
+        // Generated using JFormDesigner Evaluation license - Michail
         menuBar2 = new JMenuBar();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
@@ -141,7 +171,13 @@ public class tst extends JFrame {
         menuItem4 = new JMenuItem();
         menu2 = new JMenu();
         menuItem3 = new JMenuItem();
-        button1 = new JButton();
+        scrollPane1 = new JScrollPane();
+        list1 = new JList();
+        comboBox1 = new JComboBox();
+        textField1 = new JTextField();
+        textField2 = new JTextField();
+        button2 = new JButton();
+        button3 = new JButton();
         menuBar1 = new JMenuBar();
 
         //======== this ========
@@ -157,8 +193,28 @@ public class tst extends JFrame {
             "[fill]" +
             "[fill]" +
             "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
             "[fill]",
             // rows
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
             "[]" +
             "[]" +
             "[]" +
@@ -208,20 +264,41 @@ public class tst extends JFrame {
         }
         setJMenuBar(menuBar2);
 
-        //---- button1 ----
-        button1.setText("text");
-        button1.addActionListener(e -> button1(e));
-        contentPane.add(button1, "cell 4 2");
+        //======== scrollPane1 ========
+        {
+
+            //---- list1 ----
+            list1.addListSelectionListener(e -> list1ValueChanged(e));
+            scrollPane1.setViewportView(list1);
+        }
+        contentPane.add(scrollPane1, "cell 3 3 1 6");
+
+        //---- comboBox1 ----
+        comboBox1.addItemListener(e -> comboBox1ItemStateChanged(e));
+        contentPane.add(comboBox1, "cell 11 3");
+        contentPane.add(textField1, "cell 3 12");
+        contentPane.add(textField2, "cell 11 12");
+
+        //---- button2 ----
+        button2.setText("\u0417\u0430\u043c\u0435\u043d\u0430 \u0425");
+        button2.addActionListener(e -> replaceX(e));
+        contentPane.add(button2, "cell 3 13");
+
+        //---- button3 ----
+        button3.setText("\u0417\u0430\u043c\u0435\u043d\u0430 Y");
+        button3.addActionListener(e -> replaceY(e));
+        contentPane.add(button3, "cell 11 13");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(350, 200);
+        //setSize(350, 400);
         setVisible(true);
     }
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
+    // Generated using JFormDesigner Evaluation license - Michail
     private JMenuBar menuBar2;
     private JMenu menu1;
     private JMenuItem menuItem1;
@@ -230,7 +307,13 @@ public class tst extends JFrame {
     private JMenuItem menuItem4;
     private JMenu menu2;
     private JMenuItem menuItem3;
-    private JButton button1;
+    private JScrollPane scrollPane1;
+    private JList list1;
+    private JComboBox comboBox1;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JButton button2;
+    private JButton button3;
     private JMenuBar menuBar1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
