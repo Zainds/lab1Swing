@@ -83,9 +83,10 @@ public class tst extends JFrame {
 
     private void loadBtn(ActionEvent e) { //Загружается только массив Х
         FileDialog fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
-        fd.setDirectory("");
+        fd.setDirectory("C:\\Users\\beat1\\IdeaProjects\\lab1Swing");
         fd.setFile("*.txt");
         fd.setVisible(true);
+        System.out.println(fd.getDirectory());
         String filename = fd.getFile();
         if (filename == null)
             System.out.println("You cancelled the choice");
@@ -100,7 +101,13 @@ public class tst extends JFrame {
                 boolean separate = false;
                 while ((line = br.readLine()) != null) {
                     System.out.println(line);
-                    X.add(Double.valueOf(line));
+                    try{
+                        X.add(Double.valueOf(line));
+                    }catch (NumberFormatException ex){
+                        JOptionPane.showMessageDialog(null, "Файл содержит некорректные данные");
+                        break;
+                    }
+
                 }
                 list1.setListData(X.toArray());
             } catch (IOException ex) {
