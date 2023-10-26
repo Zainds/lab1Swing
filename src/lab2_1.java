@@ -74,7 +74,6 @@ public class lab2_1 extends JFrame {
         mygroup.add(RadioButton2);
         mygroup.add(RadioButton3);
 
-
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,9 +94,7 @@ public class lab2_1 extends JFrame {
         RadioButton1.addActionListener(MyListener);
         RadioButton2.addActionListener(MyListener);
         RadioButton3.addActionListener(MyListener);
-
     }
-
     ActionListener MyListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -110,8 +107,6 @@ public class lab2_1 extends JFrame {
             Calculate(choice);
         }
     };
-
-
     public static void main(String[] args) {
         new lab2_1();
     }

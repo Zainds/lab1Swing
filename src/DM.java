@@ -17,13 +17,13 @@ public class DM {
             // text fields
             JTextField inputX = new JTextField();
             JTextField variable = new JTextField();
-            variable.setBounds(150, 50, 100, 20);
-            inputX.setBounds(150, 20, 100, 20);
+            variable.setBounds(150, 50, 100, 25);
+            inputX.setBounds(150, 20, 100, 25);
             // text fields tips
             JLabel xLabel = new JLabel("x:");
             JLabel variableLabel = new JLabel("e0 или N:  ");
-            xLabel.setBounds(100, 20, 100, 20);
-            variableLabel.setBounds(57, 50, 100, 20);
+            xLabel.setBounds(100, 20, 100, 25);
+            variableLabel.setBounds(57, 50, 100, 25);
 
             // radio buttons
             JRadioButton precisionRadio = new JRadioButton("Точность (e0)");
@@ -80,8 +80,6 @@ public class DM {
             frame.setSize(400, 280);
             frame.setVisible(true);
             frame.setLayout(null);
-
-
         }
         private String calculate(JTextField inputX, JTextField variable, JRadioButton precisionRadio, JRadioButton termsRadio) {
             try {
@@ -96,8 +94,6 @@ public class DM {
                         result += Math.pow(x-1, n+1) / (  (n+1)* Math.pow(x, n+1))  ;
                         n++;
                     } while (Math.abs(prevResult - result) > e0);
-
-
                 } else if (termsRadio.isSelected()) {
                     double N = Double.parseDouble(variable.getText());
                     double prevResult;
@@ -117,10 +113,7 @@ public class DM {
                 return "Неверный формат ввода";
             }
         }
-
     }
-
-
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel ("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -128,9 +121,7 @@ public class DM {
                  UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }
-
         UserInterface UI = new UserInterface();
         UI.createWindow();
-
     }
 }
