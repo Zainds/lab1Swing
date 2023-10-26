@@ -83,6 +83,7 @@ public class DM {
 
 
         }
+        
         private String calculate(JTextField inputX, JTextField variable, JRadioButton precisionRadio, JRadioButton termsRadio) {
             try {
                 double x = Double.parseDouble(inputX.getText());

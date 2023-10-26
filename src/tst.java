@@ -141,9 +141,19 @@ public class tst extends JFrame {
 
     private void replaceX(ActionEvent e) {
         int indexToReplace = list1.getSelectedIndex();
-        X.set(indexToReplace, Double.valueOf(textField1.getText()));
-        list1.setListData(X.toArray());
-        list1.setSelectedIndex(indexToReplace);
+        if(indexToReplace<0){
+            JOptionPane.showMessageDialog(null, "Выберите элемент для замены");
+            return;
+        }
+        try {
+            X.set(indexToReplace, Double.valueOf(textField1.getText()));
+
+            list1.setListData(X.toArray());
+            list1.setSelectedIndex(indexToReplace);
+        }catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Неверный формат ввода");
+        }
+
     }
 
     private void comboBox1ItemStateChanged(ItemEvent e) {
@@ -155,14 +165,23 @@ public class tst extends JFrame {
 
     private void replaceY(ActionEvent e) {
         int indexToReplace = comboBox1.getSelectedIndex();
-        Y.set(indexToReplace, Double.valueOf(textField2.getText()));
-        comboBox1.setModel(new DefaultComboBoxModel<Double>(Y.toArray(new Double[0])));
-        comboBox1.setSelectedIndex(indexToReplace);
+        if(indexToReplace<0){
+            JOptionPane.showMessageDialog(null, "Выберите элемент для замены");
+            return;
+        }
+        try{
+            Y.set(indexToReplace, Double.valueOf(textField2.getText()));
+
+            comboBox1.setModel(new DefaultComboBoxModel<Double>(Y.toArray(new Double[0])));
+            comboBox1.setSelectedIndex(indexToReplace);
+        }catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Неверный формат ввода");
+        }
+
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Evaluation license - Michail
         menuBar2 = new JMenuBar();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
@@ -298,7 +317,6 @@ public class tst extends JFrame {
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Evaluation license - Michail
     private JMenuBar menuBar2;
     private JMenu menu1;
     private JMenuItem menuItem1;
