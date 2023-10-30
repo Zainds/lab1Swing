@@ -127,14 +127,14 @@ public class GPT4_2 extends JFrame {
         int n = matrixX.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                matrixY[i][j] = matrixX[i][j] + (i == j ? matrixX[i][i] : 0);
+                matrixY[i][j] = matrixX[i][ j] + matrixX[j][ j];
             }
         }
         updateTable(matrixTableY, matrixY);
     }
 
     public static void main(String[] args) {
-        int n = 5; // Заданное значение n
+        int n = 4; // Заданное значение n
         SwingUtilities.invokeLater(() -> new GPT4_2(n));
     }
 }

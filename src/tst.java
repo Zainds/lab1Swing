@@ -23,7 +23,6 @@ public class tst extends JFrame {
 
     public static int N = 10;
 
-
     public tst() {
         initComponents();
     }
@@ -49,10 +48,6 @@ public class tst extends JFrame {
         }
         list1.setListData(X.toArray());
 
-        /*for (int i = 0; i < N; i++){
-            Y.add(1.0);
-
-        }*/
     }
 
     private void saveBtn(ActionEvent e) { //Сохраняется только массив Y
@@ -72,7 +67,6 @@ public class tst extends JFrame {
                     if(i != Y.size()-1) writer.append("\n");
                     i++;
                 }
-
                 writer.flush();
             } catch (IOException ex) {
 
@@ -107,14 +101,12 @@ public class tst extends JFrame {
                         JOptionPane.showMessageDialog(null, "Файл содержит некорректные данные");
                         break;
                     }
-
                 }
                 list1.setListData(X.toArray());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
-
     }
 
     private void calculateBtn(ActionEvent e) {
@@ -135,17 +127,11 @@ public class tst extends JFrame {
             System.out.println(y);
         }
     }
-    private void clearArrays(){
-        X.clear();
-        Y.clear();
-    }
-
     private void list1ValueChanged(ListSelectionEvent e) {
         if(list1.getSelectedIndex() == -1) return; //Если ничего не выбрано (при загрузке
         System.out.println(list1.getSelectedIndex());
         textField1.setText(X.get(list1.getSelectedIndex()).toString());
     }
-
     private void replaceX(ActionEvent e) {
         int indexToReplace = list1.getSelectedIndex();
         if(indexToReplace<0){
@@ -184,7 +170,6 @@ public class tst extends JFrame {
         }catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Неверный формат ввода");
         }
-
     }
 
     private void initComponents() {
@@ -343,18 +328,15 @@ public class tst extends JFrame {
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
     public static void main(String[] args) {
-    com.formdev.flatlaf.themes.FlatMacDarkLaf.install();
-
+    com.formdev.flatlaf.themes.FlatMacDarkLaf.setup();
+    //com.formdev.flatlaf.themes.FlatMacDarkLaf.install();
         new tst();
 
         for (int i = 0; i < N; i++){
             X.add(1.0);
         }
-
         for (int i = 0; i < N; i++){
             Y.add(1.0);
         }
-
     }
-
 }
