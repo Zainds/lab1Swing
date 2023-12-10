@@ -107,7 +107,6 @@ public class GPT4_2 extends JFrame {
             }
         }
     }
-
     private void updateMatrix() {
         int selectedRow = matrixTableX.getSelectedRow();
         int selectedColumn = matrixTableX.getSelectedColumn();
@@ -122,7 +121,6 @@ public class GPT4_2 extends JFrame {
             }
         }
     }
-
     private void calculateMatrix() {
         int n = matrixX.length;
         for (int i = 0; i < n; i++) {
@@ -132,7 +130,6 @@ public class GPT4_2 extends JFrame {
         }
         updateTable(matrixTableY, matrixY);
     }
-
     public static void main(String[] args) {
         int n = 4; // Заданное значение n
         SwingUtilities.invokeLater(() -> new GPT4_2(n));
