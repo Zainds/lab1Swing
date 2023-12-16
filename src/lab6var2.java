@@ -2,7 +2,6 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.regex.*;
 
 public class lab6var2 {
     public static void main(String[] args) {
@@ -14,13 +13,12 @@ class TextEditor extends JFrame {
     private JTextPane textPane;
     private SimpleAttributeSet highlightStyle;
     private SimpleAttributeSet regularStyle;
-    private Pattern pattern;
 
     public TextEditor() {
         textPane = new JTextPane();
 
-        // Задаем строку текстового поля в коде
-        String initialText = "This is a Test. And Another еest. One More test.";
+        String initialText = "Я люблю Ходить Пешком в новый Торговый Центр в брн";
+        String initialText2 = "This is a Test. And Another Test. One More test";
         textPane.setText(initialText);
 
         textPane.setFont(new Font("Serif", Font.PLAIN, 12));
@@ -28,36 +26,36 @@ class TextEditor extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int caretPos = textPane.getCaretPosition();
                 String text = textPane.getText();
-                Matcher matcher = pattern.matcher(text);
-                while (matcher.find()) {
-                    int start = matcher.start();
-                    int end = matcher.end();
-                    String[] words = text.substring(start, end).split(" ");
-                    if (caretPos >= start && caretPos <= start + words[0].length() ||
-                            caretPos >= start + words[0].length() + 1 && caretPos <= end) {
-                        if (e.getKeyCode() == KeyEvent.VK_F2) {
-                            // Заменяем выделенные слова, к которым подведена каретка
-                            String replaced = text.substring(start, end).replaceAll("\\b([A-Z]\\w+) ([A-Z]\\w+)\\b", "$1-$2");
+                String[] words = text.split(" ");
 
-                            textPane.select(start, end);
-                            textPane.replaceSelection(replaced);
-                            // Снимаем выделение
-                            textPane.select(start, end);
-                            textPane.setCharacterAttributes(new SimpleAttributeSet(), true);
-                            textPane.setCaretPosition(start);
+                for (int i = 0; i < words.length - 1; i++) {
+                    if (Character.isUpperCase(words[i].charAt(0)) && Character.isUpperCase(words[i + 1].charAt(0))) {
+                        int start = text.indexOf(words[i] + " " + words[i + 1]);
+                        int end = start + words[i].length() + words[i + 1].length() + 1;
 
-                            break;
-                        } else if (e.getKeyCode() == KeyEvent.VK_F3) {
-                            // Снимаем выделение
-                            textPane.select(start, end);
-                            textPane.setCharacterAttributes(new SimpleAttributeSet(), true);
-                            textPane.setCaretPosition(start);
-                            break;
+                        if (caretPos >= start && caretPos <= end) {
+                            if (e.getKeyCode() == KeyEvent.VK_F2) {
+                                String replaced = words[i] + "-" + words[i + 1];
+
+                                textPane.select(start, end);
+                                textPane.replaceSelection(replaced);
+                                textPane.select(start, end);
+                                textPane.setCharacterAttributes(new SimpleAttributeSet(), true);
+                                textPane.setCaretPosition(start);
+
+                                break;
+                            } else if (e.getKeyCode() == KeyEvent.VK_F3) {
+                                textPane.select(start, end);
+                                textPane.setCharacterAttributes(new SimpleAttributeSet(), true);
+                                textPane.setCaretPosition(start);
+                                break;
+                            }
                         }
                     }
                 }
             }
         });
+
         regularStyle = new SimpleAttributeSet();
         StyleConstants.setFontSize(regularStyle, 12);
         StyleConstants.setBold(regularStyle, false);
@@ -68,25 +66,25 @@ class TextEditor extends JFrame {
         StyleConstants.setBold(highlightStyle, true);
         StyleConstants.setForeground(highlightStyle, Color.RED);
 
-        pattern = Pattern.compile("\\b[A-Z]\\w+ [A-Z]\\w+\\b");
-
         add(new JScrollPane(textPane));
         setSize(500, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        // Выделяем участки текста при запуске
         highlightText();
     }
 
     private void highlightText() {
         StyledDocument doc = textPane.getStyledDocument();
         String text = textPane.getText();
-        Matcher matcher = pattern.matcher(text);
-        while (matcher.find()) {
-            int start = matcher.start();
-            int end = matcher.end();
-            doc.setCharacterAttributes(start, end - start, highlightStyle, false);
+        String[] words = text.split(" ");
+
+        for (int i = 0; i < words.length - 1; i++) {
+            if (Character.isUpperCase(words[i].charAt(0)) && Character.isUpperCase(words[i + 1].charAt(0))) {
+                int start = text.indexOf(words[i] + " " + words[i + 1]);
+                int end = start + words[i].length() + words[i + 1].length() + 1;
+                doc.setCharacterAttributes(start, end - start, highlightStyle, false);
+            }
         }
     }
 }
