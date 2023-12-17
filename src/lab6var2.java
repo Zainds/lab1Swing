@@ -17,7 +17,7 @@ class TextEditor extends JFrame {
     public TextEditor() {
         textPane = new JTextPane();
 
-        String initialText = "Я люблю Ходить Пешком в новый Торговый Центр в брн";
+        String initialText = "Я люблю Ходить Пешком в новый Торговый Центр ";
         String initialText2 = "This is a Test. And Another Test. One More test";
         textPane.setText(initialText);
 
@@ -65,6 +65,8 @@ class TextEditor extends JFrame {
         StyleConstants.setFontSize(highlightStyle, 14);
         StyleConstants.setBold(highlightStyle, true);
         StyleConstants.setForeground(highlightStyle, Color.RED);
+        StyleConstants.setFontFamily(highlightStyle, "Ubuntu");
+
 
         add(new JScrollPane(textPane));
         setSize(500, 500);
