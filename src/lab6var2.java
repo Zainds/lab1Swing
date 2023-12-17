@@ -21,7 +21,7 @@ class TextEditor extends JFrame {
         String initialText2 = "This is a Test. And Another Test. One More test";
         textPane.setText(initialText);
 
-        textPane.setFont(new Font("Serif", Font.PLAIN, 12));
+        textPane.setFont(new Font(Font.DIALOG_INPUT, Font.PLAIN, 18));
         textPane.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 int caretPos = textPane.getCaretPosition();
@@ -64,8 +64,9 @@ class TextEditor extends JFrame {
         highlightStyle = new SimpleAttributeSet();
         StyleConstants.setFontSize(highlightStyle, 14);
         StyleConstants.setBold(highlightStyle, true);
-        StyleConstants.setForeground(highlightStyle, Color.RED);
-        StyleConstants.setFontFamily(highlightStyle, "Ubuntu");
+        StyleConstants.setForeground(highlightStyle, Color.black);
+        StyleConstants.setFontFamily(highlightStyle, "Comic Sans");
+
 
 
         add(new JScrollPane(textPane));
