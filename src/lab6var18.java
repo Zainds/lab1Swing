@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
 import javax.swing.text.Highlighter;
 import java.awt.*;
@@ -38,14 +39,53 @@ public class lab6var18 {
             }
         }
 
-        // Добавляем KeyListener для удаления подсветки при нажатии клавиши F2
+        // Добавляем KeyListener для удаления подсветки и знаков комментария при нажатии клавиши F2 и снятия выделения при нажатии клавиши F3
         textArea.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_F2) {
-                    highlighter.removeAllHighlights();
-                    textArea.setText(textArea.getText().replace("//", "").replace("/*", "").replace("*/", ""));
+                    try {
+                        deleteComments(textArea, highlighter, pattern);
+                    } catch (BadLocationException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else if (e.getKeyCode() == KeyEvent.VK_F3) {
+                    removeHighlight(textArea, highlighter);
                 }
             }
         });
+    }
+
+    private static void deleteComments(JTextArea textArea, Highlighter highlighter, Pattern pattern) throws BadLocationException {
+        int caretPosition = textArea.getCaretPosition();
+        // Находим комментарий, который содержит позицию каретки
+        for (Highlighter.Highlight highlight : highlighter.getHighlights()) {
+            if (caretPosition >= highlight.getStartOffset() && caretPosition <= highlight.getEndOffset()) {
+                // Удаляем подсветку
+                highlighter.removeHighlight(highlight);
+                // Удаляем знаки комментария из текста
+                String comment = textArea.getText(highlight.getStartOffset(), highlight.getEndOffset() - highlight.getStartOffset());
+                comment = comment.replace("/*", "").replace("*/", "").replace("//", "");
+                textArea.replaceRange(comment, highlight.getStartOffset(), highlight.getEndOffset());
+                // Проверяем, есть ли внутри комментария другие комментарии
+                Matcher nestedMatcher = pattern.matcher(comment);
+                if (nestedMatcher.find()) {
+                    // Если да, то удаляем их
+                    deleteComments(textArea, highlighter, pattern);
+                }
+                break;
+            }
+        }
+    }
+
+    private static void removeHighlight(JTextArea textArea, Highlighter highlighter) {
+        int caretPosition = textArea.getCaretPosition();
+        // Находим фрагмент, который содержит позицию каретки
+        for (Highlighter.Highlight highlight : highlighter.getHighlights()) {
+            if (caretPosition >= highlight.getStartOffset() && caretPosition <= highlight.getEndOffset()) {
+                // Удаляем подсветку
+                highlighter.removeHighlight(highlight);
+                break;
+            }
+        }
     }
 }
