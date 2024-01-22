@@ -19,7 +19,7 @@ public class lab2_2 extends JFrame {
     private String calculate(JTextField inputX, JTextField variable, JRadioButton precisionRadio, JRadioButton termsRadio) {
         try {
             double x = Double.parseDouble(inputX.getText());
-            double result = 0;
+            double result = Math.PI;
             if (precisionRadio.isSelected()) {
                 double e0 = Double.parseDouble(variable.getText());
                 double prevResult;
@@ -34,7 +34,7 @@ public class lab2_2 extends JFrame {
             } else if (termsRadio.isSelected()) {
                 double N = Double.parseDouble(variable.getText());
                 for (int i = 0; i < N; i++) {
-                    result += (Math.pow(x, i) / factorial(i));
+                    result += (Math.pow(-1, i+1) / ( (2*i+1) * Math.pow(x,2*i+1) ));
                 }
             }
 
@@ -72,7 +72,7 @@ public class lab2_2 extends JFrame {
             if(radioButton2.isSelected()){
                 try{
                     double N = Double.parseDouble(nValue.getText());
-                    if(!isNumeric(nValue.getText()))throw new NumberFormatException("Use numeric format");
+                    //if(!isNumeric(nValue.getText()))throw new NumberFormatException("Use numeric format");
                     //answerLabel.setText(String.valueOf(SummN(N, x)));
                 }catch (NumberFormatException ex){
                     answerLabel.setText("Некорректное N");

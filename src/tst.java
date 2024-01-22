@@ -34,9 +34,10 @@ public class tst extends JFrame {
     private void newBtn(ActionEvent e) {
        X.clear();
        list1.removeAll();
-
-        for (int i = 0; i < N; i++){
-            if(i==0){
+       X.add(1.0);
+        for (int i = 1; i < N; i++){
+            X.add(Math.sin(X.get(i-1) ) );
+            /*if(i==0){
                 X.add( 0.5  );
             }
             if(i==N-1){
@@ -44,7 +45,7 @@ public class tst extends JFrame {
             }
             if(i!=0 && i!=N-1){
                 X.add(  1/(1 + Math.pow(i+1, 2) )  );
-            }
+            }*/
         }
         list1.setListData(X.toArray());
 
@@ -60,7 +61,7 @@ public class tst extends JFrame {
             System.out.println("You cancelled the choice");
         else {
             System.out.println("You chose " + filename);
-            try (FileWriter writer = new FileWriter("Y.txt", false)) {
+            try (FileWriter writer = new FileWriter(filename, false)) {
                 int i = 0;
                 for (double y : Y) {
                     writer.write(String.valueOf(y));
@@ -111,9 +112,19 @@ public class tst extends JFrame {
 
     private void calculateBtn(ActionEvent e) {
         int j = 0;
-        for (int i = X.size()-1; i>= 0; i--){
+        /*for (int i = X.size()-1; i>= 0; i--){
             Y.set(j, X.get(i));
             j++;
+        }*/
+        for(int i = 0; i <=X.size()-1; i++){
+            if (i % 2 ==0){
+                Y.set(i, X.get(i) * 2);
+                //Y.add(X.get(i) * 2);
+            }
+            else {
+                Y.set(i, X.get(i) / 3);
+                //Y.add(X.get(i) / 3);
+            }
         }
         comboBox1.setModel(new DefaultComboBoxModel<Double>(Y.toArray(new Double[0])));
     }
@@ -174,6 +185,7 @@ public class tst extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
+        // Generated using JFormDesigner Evaluation license - Mikhail
         menuBar2 = new JMenuBar();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
@@ -309,6 +321,7 @@ public class tst extends JFrame {
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
+    // Generated using JFormDesigner Evaluation license - Mikhail
     private JMenuBar menuBar2;
     private JMenu menu1;
     private JMenuItem menuItem1;

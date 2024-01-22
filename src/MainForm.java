@@ -78,9 +78,9 @@ public class MainForm {
         grid_constraints.gridy = 3;
         main_form.add(print, grid_constraints);
 
-        radio_1 = _initRButton("x * sin(x)");
-        radio_2 = _initRButton("sqrt(x)/x");
-        radio_3 = _initRButton("x^2 + 3");
+        radio_1 = _initRButton("tg(cos(x+1))");
+        radio_2 = _initRButton("sin(x^3-1)");
+        radio_3 = _initRButton("x/3 - 1.5");
         rbuttons_group = new ButtonGroup();
         rbuttons_group.add(radio_1);
         grid_constraints.gridx = 2;
@@ -134,28 +134,28 @@ public class MainForm {
 
             switch (choice){
                 case 1:
-                    result = x * Math.sin(x);
+                    result = Math.tan(Math.cos(x+1));
                     radio_1.setSelected(true);
                     break;
                 case 2:
-                    result = Math.sqrt(x)/x;
+                    result = Math.sin(x*x*x-1);
                     radio_2.setSelected(true);
                     break;
                 case 3:
-                    result = x*x + 2;
+                    result = x/3-1.5;
                     radio_3.setSelected(true);
                     break;
                 default:
-                    if(x<=0 ){
-                        result = x * Math.sin(x);
+                    if(x<1 ){
+                        result = Math.tan(Math.cos(x+1));
                         radio_1.setSelected(true);
                     }
-                    if(  (x > 0 && x < 3) ) {
-                        result = Math.sqrt(x)/x;
+                    if(  (x >= 1 && x <= 3) ) {
+                        result = Math.sin(x*x*x-1);
                         radio_2.setSelected(true);
                     }
-                    if(x>=3){
-                        result = x*x + 2;
+                    if(x>3){
+                        result = x/3-1.5;
                         radio_3.setSelected(true);
                     }
                     break;

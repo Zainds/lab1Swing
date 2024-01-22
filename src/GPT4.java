@@ -59,29 +59,32 @@ public void actionPerformed(ActionEvent e) {
 
         pack();
         setVisible(true);
+}
+
+        private double[][] createMatrix(int n) {
+                double[][] matrix = new double[n][n];
+                int mid = n / 2;
+
+                for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n; j++) {
+                                if ((i < mid && j < mid) || (i >= mid && j >= mid)) {
+                                        matrix[i][j] = 1;
+                                } else {
+                                        matrix[i][j] = 0;
+                                }
+                        }
+                }
+                return matrix;
         }
 
-private double[][] createMatrix(int n) {
-        double[][] matrix = new double[n][n];
-        for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-        if (i == n - 1) {
-        matrix[i][j] = 1;
-        } else {
-        matrix[i][j] = n - i;
-        }
-        }
-        }
-        return matrix;
-        }
 
-private void updateTable() {
+        private void updateTable() {
         for (int i = 0; i < matrix.length; i++) {
-        for (int j = 0; j < matrix[i].length; j++) {
-        matrixTable.setValueAt(matrix[i][j], i, j);
+                for (int j = 0; j < matrix[i].length; j++) {
+                        matrixTable.setValueAt(matrix[i][j], i, j);
+                }
         }
-        }
-        }
+}
 
 private void updateMatrix() {
         int selectedRow = matrixTable.getSelectedRow();
@@ -89,17 +92,18 @@ private void updateMatrix() {
         if (selectedRow >= 0 && selectedColumn >= 0) {
         String valueStr = textField.getText();
         try {
-        double value = Double.parseDouble(valueStr);
-        matrix[selectedRow][selectedColumn] = value;
-        tableModel.setValueAt(value, selectedRow, selectedColumn);
-        } catch (NumberFormatException e) {
+                double value = Double.parseDouble(valueStr);
+                matrix[selectedRow][selectedColumn] = value;
+                tableModel.setValueAt(value, selectedRow, selectedColumn);
+        }
+        catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Неверное значение", "Ошибка", JOptionPane.ERROR_MESSAGE);
         }
         }
         }
 
 public static void main(String[] args) {
-        int n = 5; // Заданное значение n
+        int n = 6; // Заданное значение n
         SwingUtilities.invokeLater(() -> new GPT4(n));
         }
-        }
+}

@@ -87,14 +87,14 @@ public class DM {
         private String calculate(JTextField inputX, JTextField variable, JRadioButton precisionRadio, JRadioButton termsRadio) {
             try {
                 double x = Double.parseDouble(inputX.getText());
-                double result = 0;
+                double result = -Math.PI/2;
                 if (precisionRadio.isSelected()) {
                     double e0 = Double.parseDouble(variable.getText());
                     double prevResult;
                     int n = 0;
                     do {
                         prevResult = result;
-                        result += Math.pow(x-1, n+1) / (  (n+1)* Math.pow(x, n+1))  ;
+                        result += (Math.pow(-1, n+1) / ( (2*n+1) * Math.pow(x,2*n+1) ))  ;
                         n++;
                     } while (Math.abs(prevResult - result) > e0);
 
@@ -105,7 +105,7 @@ public class DM {
                     int n = 0;
                     for (int i = 0; i < N; i++) {
                         prevResult = result;
-                        result += Math.pow(x-1, n+1) / (  (n+1)* Math.pow(x, n+1));
+                        result += (Math.pow(-1, i+1) / ( (2*i+1) * Math.pow(x,2*i+1) ));
                         n++;
                     }
                 }
